@@ -1,0 +1,20 @@
+eturnal:
+  secret: "78bb4f02d600b9bc56ae87eeaf8b41224564da7e39699ac0"
+  realm: "turn.disfrota.com.br"
+  relay_ipv4_addr: "191.36.189.102"
+  relay_ipv6_addr: "SEU_IP_PUBLICO_V6" # Opcional
+  relay_min_port: 50000
+  relay_max_port: 50100
+  strict_expiry: false
+  log_dir: stdout
+  listen:
+    - ip: "::"
+      port: 3478
+      transport: udp
+      enable_turn: true
+    - ip: "::"
+      port: 3478
+      transport: tcp
+      enable_turn: true
+  modules:
+    mod_log_stun: {}
