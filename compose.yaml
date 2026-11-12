@@ -16,14 +16,14 @@ services:
       - "50000-50100:50000-50100/udp"
     restart: unless-stopped
     environment:
-      - ETURNAL_SECRET=${TURN_SECRET}
-      - ETURNAL_REALM=turn.example.com
-      - ETURNAL_RELAY_IPV4_ADDR=SEU_IP_PUBLICO
+      - ETURNAL_SECRET=78bb4f02d600b9bc56ae87eeaf8b41224564da7e39699ac0
+      - ETURNAL_REALM=turn.disfrota.com.br
+      - ETURNAL_RELAY_IPV4_ADDR=191.36.189.102
       - ETURNAL_RELAY_MIN_PORT=50000
       - ETURNAL_RELAY_MAX_PORT=50100
-      - VIRTUAL_HOST=turn.example.com
-      - LETSENCRYPT_HOST=turn.example.com
-      - LETSENCRYPT_EMAIL=email@example.com
+      - VIRTUAL_HOST=turn.disfrota.com.br
+      - LETSENCRYPT_HOST=turn.disfrota.com.br
+      - LETSENCRYPT_EMAIL=suporte@hmsolucoes.com
       # Não há VIRTUAL_PORT aqui porque o proxy reverso não trabalha com UDP.
     volumes:
       - ./eturnal/eturnal.yml:/etc/eturnal.yml:ro
