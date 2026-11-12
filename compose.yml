@@ -1,0 +1,33 @@
+networks:
+  reverse-proxy:
+    external: true
+    name: reverse-proxy
+  internal:
+    driver: bridge
+
+services:
+  eturnal:
+    image: ghcr.io/processone/eturnal:latest
+    container_name: eturnal-talk
+    ports:
+      - "3478:3478/udp"
+      - "3478:3478/tcp"
+      - "5349:5349/tcp"
+      - "50000-50100:50000-50100/udp"
+    restart: unless-stopped
+    environment:
+      - ETURNAL_SECRET=${TURN_SECRET}
+      - ETURNAL_REALM=turn.example.com
+      - ETURNAL_RELAY_IPV4_ADDR=SEU_IP_PUBLICO
+      - ETURNAL_RELAY_MIN_PORT=50000
+      - ETURNAL_RELAY_MAX_PORT=50100
+      - VIRTUAL_HOST=turn.example.com
+      - LETSENCRYPT_HOST=turn.example.com
+      - LETSENCRYPT_EMAIL=email@example.com
+      # Não há VIRTUAL_PORT aqui porque o proxy reverso não trabalha com UDP.
+    volumes:
+      - ./eturnal/eturnal.yml:/etc/eturnal.yml:ro
+      - ./volumes/eturnal/logs:/var/log/eturnal
+    networks:
+      - internal
+      - reverse-proxy
